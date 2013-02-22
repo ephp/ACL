@@ -1,0 +1,16 @@
+function sendMessageJs(user_id) {
+    FB.ui({
+        method: 'send',
+        name: '{{ app_name|raw }}',
+        link: 'https://apps.facebook.com/{{ app_id }}',
+        to: user_id,
+        description: '{{ app_url|raw }}'
+    });
+}
+
+function sendInviteJs(id) {
+  FB.ui({method: 'apprequests',
+    message: '{{ app_name|raw }}',
+    to: id
+  });
+}

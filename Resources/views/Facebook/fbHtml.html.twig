@@ -1,0 +1,15 @@
+<script type="text/text" id="fb-friend">
+    <div id="fbf[id]">
+        <img src="https://graph.facebook.com/[id]/picture" title="[name]"/>[name]
+        <button onclick="sendMessageJs([id])">{{ 'fb.friends.invite'|trans({}, 'EphpACL') }} MP JS</button>
+        <button onclick="sendInviteJs([id])">{{ 'fb.friends.invite'|trans({}, 'EphpACL') }} INV JS</button>
+        <button onclick="sendRequestToRecipientsPhp([id])">{{ 'fb.friends.invite'|trans({}, 'EphpACL') }} PHP</button>
+    </div>
+</script>
+<script type="text/text" id="fb-reg-friend">
+    <div id="fbf[id]">
+        <img src="https://graph.facebook.com/[id]/picture" title="[name]"/>[name] - [slug]
+        <button onclick="sendMessageJs([id])">{{ 'fb.friends.invite'|trans({}, 'EphpACL') }} MP JS</button>
+        <button onclick="sendInviteJs([id])">{{ 'fb.friends.invite'|trans({}, 'EphpACL') }} INV JS</button>
+    </div>
+</script>
