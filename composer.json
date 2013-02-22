@@ -21,10 +21,5 @@
             "psr-0": { "Ephp\\ACLBundle": "" }
     },
     "target-dir": "Ephp/ACLBundle",
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "master-dev": "master"
-        }
-    }
+    "minimum-stability": "dev"
 }
