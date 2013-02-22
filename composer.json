@@ -1,27 +1,27 @@
 {
-	"name": "ephp/acl",
-	"type": "symfony-bundle",
-	"description": "Bundle base per accesso con FOSUser o FOS Facebook",
-	"keywords": ["registrazione", "symfony", "symfony bundle", "bundle", "ephp", "symfony-2.1"],
-	"homepage": "https://github.com/Ephraim-at-work/ACL",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Ephraim Pepe",
-			"email": "ephraim.pepe@gmail.com"
-		}
-	],
-	"require": {
-		"php": ">=5.3.2",
-		"symfony/framework-bundle": "2.*",
-                "friendsofsymfony/user-bundle": "*",
-                "friendsofsymfony/facebook-bundle": "1.1.*"
-	},
-	"autoload": {
-		"psr-0": { "Ephp\\ACLBundle": "" }
-	},
-	"target-dir": "Ephp/ACLBundle",
-	"minimum-stability": "dev",
+    "name": "ephp/acl",
+    "type": "symfony-bundle",
+    "description": "Bundle base per accesso con FOSUser o FOS Facebook",
+    "keywords": ["registrazione", "symfony", "symfony bundle", "bundle", "ephp", "symfony-2.1"],
+    "homepage": "https://github.com/ephp/ACL",
+    "license": "MIT",
+    "authors": [
+            {
+                "name": "Ephraim Pepe",
+                "email": "ephraim.pepe@gmail.com"
+            }
+    ],
+    "require": {
+            "php": ">=5.3.2",
+            "symfony/framework-bundle": "2.*",
+            "friendsofsymfony/user-bundle": "*",
+            "friendsofsymfony/facebook-bundle": "1.1.*"
+    },
+    "autoload": {
+            "psr-0": { "Ephp\\ACLBundle": "" }
+    },
+    "target-dir": "Ephp/ACLBundle",
+    "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "master"
