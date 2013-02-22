@@ -1,6 +1,6 @@
 services:
     my.facebook.user:
-        class: Ephp\Bundle\ACLBundle\Security\User\Provider\FacebookProvider
+        class: Ephp\ACLBundle\Security\User\Provider\FacebookProvider
         arguments:
             facebook: "@fos_facebook.api"
             userManager: "@fos_user.user_manager"

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ephp\Bundle\ACLBundle\Security\User\Provider;
+namespace Ephp\ACLBundle\Security\User\Provider;
 
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;

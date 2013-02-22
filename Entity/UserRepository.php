@@ -1,6 +1,6 @@
 <?php
 
-namespace Ephp\Bundle\ACLBundle\Entity;
+namespace Ephp\ACLBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

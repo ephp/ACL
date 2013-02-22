@@ -1,15 +1,15 @@
 <?php
 
-namespace Ephp\Bundle\ACLBundle\Entity;
+namespace Ephp\ACLBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Ephp\Bundle\ACLBundle\Entity\User
+ * Ephp\ACLBundle\Entity\User
  *
  * @ORM\Table(name="ephp_users")
- * @ORM\Entity(repositoryClass="Ephp\Bundle\ACLBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Ephp\ACLBundle\Entity\UserRepository")
  */
 class User extends BaseUser
 {

@@ -1,12 +1,13 @@
 <?php
 
-namespace Ephp\Bundle\ACLBundle\Controller;
+namespace Ephp\ACLBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
-use Ephp\Bundle\ACLBundle\Entity\User;
+use Ephp\ACLBundle\Entity\User;
+use Ephp\ACLBundle\Utility\Facebook;
 
 /**
  * @Route("/fb")
@@ -67,23 +68,6 @@ class FacebookController extends Controller {
     }
 
     /**
-     * @Route("/invite", name="fb_invite", defaults={"_format"="json"})
-     */
-    public function fbInviteAction() {
-        $em = $this->getEm();
-        $req = $this->getRequest();
-        $fb = $req->get('fb');
-        $facebook = $this->get('fos_facebook.api');
-        /* @var $facebook \Facebook */
-        try {
-            $out = $facebook->api("/me/feed", array('to' => $fb, 'message' => "Piccolo Cinema Indipendnete", 'link' => "http://www.piccolocinema.it/", 'description' => "Sito in aggiornamento"));
-        } catch (FacebookApiException $e) {
-            return $this->redirect($this->generateUrl('home'));
-        }
-        return new Response(json_encode($out));
-    }
-
-    /**
      * @Route("/friends", name="fb_friends", defaults={"_format"="json"})
      */
     public function fbFriendsAction() {
@@ -96,21 +80,13 @@ class FacebookController extends Controller {
             return $this->redirect($this->generateUrl('home'));
         }
         $friends = $friends['data'];
-        $fbids = $this->retriveFbId($friends);
+        $fbids = Facebook::retriveFbId($friends);
         $_user = $em->getRepository('EphpACLBundle:User');
         $reg_friends = $_user->findBy(array('facebookId' => $fbids));
-        $out = $this->registredAndFriends($friends, $reg_friends);
-        usort($out['registred'], array($this, 'sortByName'));
-        usort($out['unregistred'], array($this, 'sortByName'));
+        $out = Facebook::registredAndFriends($friends, $reg_friends);
+        usort($out['registred'], array(Facebook, 'sortByName'));
+        usort($out['unregistred'], array(Facebook, 'sortByName'));
         return new Response(json_encode($out));
-    }
-
-    /**
-     * @Route("/script.html", name="fb_html", defaults={"_format"="html"})
-     * @Template()
-     */
-    public function fbHtmlAction() {
-        return array();
     }
 
     /**
@@ -123,34 +99,6 @@ class FacebookController extends Controller {
             'app_name' => $this->container->getParameter('ephp_acl.facebook.app_name'),
             'app_url'  => $this->container->getParameter('ephp_acl.facebook.app_url'),
             );
-    }
-
-    protected function registredAndFriends($friends, $reg_friends) {
-        $out = array('registred' => array());
-        foreach ($reg_friends as $reg_friend) {
-            /* @var $reg_friend User */
-            foreach ($friends as $id => $friend) {
-                if ($friend['id'] == $reg_friend->getFacebookId()) {
-                    $friend['slug'] = $reg_friend->getEmail();
-                    $out['registred'][] = $friend;
-                    unset($friends[$id]);
-                }
-            }
-        }
-        $out['unregistred'] = $friends;
-        return $out;
-    }
-
-    protected function retriveFbId($friends) {
-        $fbids = array();
-        foreach ($friends as $friend) {
-            $fbids[] = $friend['id'];
-        }
-        return $fbids;
-    }
-
-    protected function sortByName($a, $b) {
-        return strcmp($a['name'], $b['name']);
     }
 
     /**

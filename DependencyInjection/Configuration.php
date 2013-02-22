@@ -1,6 +1,6 @@
 <?php
 
-namespace Ephp\Bundle\ACLBundle\DependencyInjection;
+namespace Ephp\ACLBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

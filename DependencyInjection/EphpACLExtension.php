@@ -1,6 +1,6 @@
 <?php
 
-namespace Ephp\Bundle\ACLBundle\DependencyInjection;
+namespace Ephp\ACLBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

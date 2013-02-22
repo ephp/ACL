@@ -1,6 +1,6 @@
 <?php
 
-namespace Ephp\Bundle\ACLBundle;
+namespace Ephp\ACLBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
