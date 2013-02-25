@@ -29,11 +29,7 @@ class Facebook {
     }
 
     public static function sortByName(&$array) {
-        usort($$array, array($this, 'sortByName'));
+        usort($array, function($a, $b) { return strcmp($a['name'], $b['name']); });
     }
     
-    public static function _sortByName($a, $b) {
-        return strcmp($a['name'], $b['name']);
-    }
-
 }
