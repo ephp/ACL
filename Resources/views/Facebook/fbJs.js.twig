@@ -16,7 +16,11 @@ function fb_friends(user_id){
 function fb_pictures(user_id){
     $.post("{{ path('fb_picture') }}", {fb: {userId: user_id}}, function(out){
         console.log(out);
-        $('#fb-pictures').append('<h2>Puppa</h2>');
+        $('#fb-pictures').append('<h2>{{ 'fb.pictures.post'|trans({}, 'EphpACL') }}</h2>');
+        out.each(function(picture) {
+            html = $('#fb-picture').html().replace(/\[id\]/g, picture.id).replace(/\[name\]/g, picture.from.name).replace(/\[url_big\]/g, picture.picture).replace(/\[url_tmb\]/g, picture.icon);
+            $('#fb-friends').append(html);
+        });
     });
 }
 

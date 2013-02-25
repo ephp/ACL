@@ -98,11 +98,11 @@ class FacebookController extends Controller {
         $facebook = $this->get('fos_facebook.api');
         /* @var $facebook \Facebook */
         try {
-            $pictures = $facebook->api('/me/picture');
+            $pictures = $facebook->api('/me/photos');
         } catch (FacebookApiException $e) {
             return $this->redirect($this->generateUrl('home'));
         }
-        return new Response(json_encode($pictures));
+        return new Response(json_encode($pictures['data']));
     }
 
     /**
