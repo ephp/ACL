@@ -126,7 +126,6 @@ class FacebookController extends Controller {
     }
 
 }
-
 /*
 Array
 (
