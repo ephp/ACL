@@ -28,7 +28,11 @@ class Facebook {
         return $fbids;
     }
 
-    public static function sortByName($a, $b) {
+    public static function sortByName(&$array) {
+        usort($$array, array($this, 'sortByName'));
+    }
+    
+    public static function _sortByName($a, $b) {
         return strcmp($a['name'], $b['name']);
     }
 

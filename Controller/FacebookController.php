@@ -85,8 +85,8 @@ class FacebookController extends Controller {
         $_user = $em->getRepository('EphpACLBundle:User');
         $reg_friends = $_user->findBy(array('facebookId' => $fbids));
         $out = Facebook::registredAndFriends($friends, $reg_friends);
-        usort($out['registred'], array(Facebook, 'sortByName'));
-        usort($out['unregistred'], array(Facebook, 'sortByName'));
+        Facebook::sortByName($out['registred']);
+        Facebook::sortByName($out['unregistred']);
         return new Response(json_encode($out));
     }
 
