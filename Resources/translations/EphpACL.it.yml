@@ -1,4 +1,7 @@
 # Facebook
 fb:
   friends:
+    registred: Amici già registrati
+    unregistred: Invita i tuoi amici
     invite: Invita!
+    message: Invia un messaggio

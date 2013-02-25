@@ -38,6 +38,7 @@ class FacebookController extends Controller {
                     $user->setLastname($me['last_name']);
                     $user->setNickname($me['username']);
                     $user->setGender($me['gender']);
+                    $user->setBirthday($me['birthday'], User::FACEBOOK);
                     $user->setLocale($me['locale']);
                     $user->setEmail($me['email']);
                     $user->setEnabled(true);
@@ -87,6 +88,21 @@ class FacebookController extends Controller {
         usort($out['registred'], array(Facebook, 'sortByName'));
         usort($out['unregistred'], array(Facebook, 'sortByName'));
         return new Response(json_encode($out));
+    }
+
+    /**
+     * @Route("/pictures", name="fb_picture", defaults={"_format"="json"})
+     */
+    public function fbPicturesAction() {
+        $em = $this->getEm();
+        $facebook = $this->get('fos_facebook.api');
+        /* @var $facebook \Facebook */
+        try {
+            $pictures = $facebook->api('/me/picture');
+        } catch (FacebookApiException $e) {
+            return $this->redirect($this->generateUrl('home'));
+        }
+        return new Response(json_encode($pictures));
     }
 
     /**

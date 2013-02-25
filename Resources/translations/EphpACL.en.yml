@@ -1,4 +1,7 @@
 # Facebook
 fb:
   friends:
+    registred: Registered friends
+    unregistred: Invite your friends
     invite: Invite!
+    message: Sena a message

@@ -11,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ephp_users")
  * @ORM\Entity(repositoryClass="Ephp\ACLBundle\Entity\UserRepository")
  */
-class User extends BaseUser
-{
+class User extends BaseUser {
+
     /**
      * @var integer $id
      *
@@ -42,40 +42,46 @@ class User extends BaseUser
      * @ORM\Column(name="nickname", type="string", length=255, nullable=true)
      */
     protected $nickname;
-    
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="birthday", type="date", nullable=true)
+     */
+    protected $birthday;
+
     /**
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=16, nullable=true)
      */
     protected $gender;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="locale", type="string", length=8, nullable=true)
      */
     protected $locale;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
      */
     protected $facebookId;
+    
+    const FACEBOOK = 1;    
 
     function __construct() {
         parent::__construct();
     }
 
-    
-    public function serialize()
-    {
+    public function serialize() {
         return serialize(array($this->facebookId, parent::serialize()));
     }
 
-    public function unserialize($data)
-    {
+    public function unserialize($data) {
         list($this->facebookId, $parentData) = unserialize($data);
         parent::unserialize($parentData);
     }
@@ -83,32 +89,28 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
     /**
      * @param string $firstname
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
     }
 
     /**
      * @return string
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
 
     /**
      * @param string $lastname
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
     }
 
@@ -116,8 +118,7 @@ class User extends BaseUser
      * Get the full name of the user (first + last name)
      * @return string
      */
-    public function getFullName()
-    {
+    public function getFullName() {
         return $this->getFirstname() . ' ' . $this->getLastname();
     }
 
@@ -125,8 +126,7 @@ class User extends BaseUser
      * @param string $facebookId
      * @return void
      */
-    public function setFacebookId($facebookId)
-    {
+    public function setFacebookId($facebookId) {
         $this->facebookId = $facebookId;
         $this->setUsername($facebookId);
         $this->salt = '';
@@ -135,16 +135,14 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getFacebookId()
-    {
+    public function getFacebookId() {
         return $this->facebookId;
     }
 
     /**
      * @param Array
      */
-    public function setFBData($fbdata)
-    {
+    public function setFBData($fbdata) {
         if (isset($fbdata['id'])) {
             $this->setFacebookId($fbdata['id']);
             $this->addRole('ROLE_FACEBOOK');
@@ -165,8 +163,7 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -176,10 +173,9 @@ class User extends BaseUser
      * @param string $nickname
      * @return User
      */
-    public function setNickname($nickname)
-    {
+    public function setNickname($nickname) {
         $this->nickname = $nickname;
-    
+
         return $this;
     }
 
@@ -188,8 +184,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getNickname()
-    {
+    public function getNickname() {
         return $this->nickname;
     }
 
@@ -199,10 +194,9 @@ class User extends BaseUser
      * @param string $gender
      * @return User
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
-    
+
         return $this;
     }
 
@@ -211,8 +205,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -222,10 +215,9 @@ class User extends BaseUser
      * @param string $locale
      * @return User
      */
-    public function setLocale($locale)
-    {
+    public function setLocale($locale) {
         $this->locale = $locale;
-    
+
         return $this;
     }
 
@@ -234,8 +226,39 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getLocale()
-    {
+    public function getLocale() {
         return $this->locale;
     }
+
+    /**
+     * Set locale
+     *
+     * @param \DateTime $birthday
+     * @return User
+     */
+    public function setBirthday($birthday, $from = null) {
+        if ($birthday) {
+            if (is_string($birthday)) {
+                if(in_array($from, self::FACEBOOK)) {
+                    $birthday = \DateTime::createFromFormat('m/d/Y', $birthday);
+                } else {
+                    $birthday = \DateTime::createFromFormat('d/m/Y', $birthday);
+                }
+            }
+            if ($birthday instanceof \DateTime) {
+                $this->birthday = $birthday;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return \DateTime
+     */
+    public function getBirthday() {
+        return $this->birthday;
+    }
+
 }

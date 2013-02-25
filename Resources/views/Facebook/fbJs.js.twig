@@ -1,3 +1,25 @@
+function fb_friends(){
+    $.post("{{ path('fb_friends') }}", {fb: {userId: {{ fb }}}}, function(out){
+        console.log(out);
+        $('#fb-friends').append('<h2>{{ 'fb.friends.registred'|trans({}, 'EphpACL') }}</h2>');
+        out.registred.each(function(friend) {
+            html = $('#fb-reg-friend').html().replace(/\[id\]/g, friend.id).replace(/\[name\]/g, friend.name).replace(/\[slug\]/g, friend.slug);
+            $('#fb-friends').append(html);
+        });
+        $('#fb-friends').append('<h2>{{ 'fb.friends.unregistred'|trans({}, 'EphpACL') }}</h2>');
+        out.unregistred.each(function(friend) {
+            html = $('#fb-friend').html().replace(/\[id\]/g, friend.id).replace(/\[name\]/g, friend.name);
+            $('#fb-friends').append(html);
+        });
+    });
+}
+function fb_pictures(){
+    $.post("{{ path('fb_picture') }}", {fb: {userId: {{ fb }}}}, function(out){
+        console.log(out);
+        $('#fb-pictures').append('<h2>Puppa</h2>');
+    });
+}
+
 function sendMessageJs(user_id) {
     FB.ui({
         method: 'send',
