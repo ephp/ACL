@@ -13,6 +13,7 @@ function fb_friends(user_id){
         });
     });
 }
+
 function fb_pictures(user_id){
     $.post("{{ path('fb_picture') }}", {fb: {userId: user_id}}, function(out){
         console.log(out);

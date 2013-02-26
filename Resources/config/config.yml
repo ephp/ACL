@@ -1,4 +1,5 @@
 ephp_acl:
+  user_class: \Ephp\ACLBundle\Entity\User
   facebook:
     app_id: 1234567890
     app_secret: 1234567890

@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface {
 
         $rootNode
                 ->children()
+                    ->scalarNode('user_class')->defaultValue('Ephp\ACLBundle\Entity\User')->cannotBeEmpty()->end()
                     ->arrayNode('facebook')
                         ->addDefaultsIfNotSet()
                         ->children()

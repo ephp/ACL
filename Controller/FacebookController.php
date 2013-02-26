@@ -21,26 +21,28 @@ class FacebookController extends Controller {
         $em = $this->getEm();
         $req = $this->getRequest();
         $fb = $req->get('fb');
-        $_user = $em->getRepository('EphpACLBundle:User');
-        $user = $_user->findOneBy(array('facebookId' => $fb['userID']));
+        $nofb = false;
+        $user = $this->getUser();
+        /* @var $user \Ephp\ACLBundle\Model\BaseUser */
+        if($user == 'anon.') {
+            $_user = $em->getRepository($this->container->getParameter('ephp_acl.user_class'));
+            $user = $_user->findOneBy(array('facebookId' => $fb['userID']));
+        } else {
+            $nofb = !$user->getFacebookId();
+        }
         $status = 'unknow';
-        if (!$user) {
+        if (!$user || $nofb) {
             $facebook = $this->get('fos_facebook.api');
             /* @var $facebook \Facebook */
             $user_id = $facebook->getUser();
             if ($user_id) {
                 try {
                     $me = $facebook->api('/me', 'GET');
-                    $user = new User();
-                    $user->setFacebookId($me['id']);
-                    $user->setUsername($me['id']);
-                    $user->setFirstname($me['first_name']);
-                    $user->setLastname($me['last_name']);
-                    $user->setNickname($me['username']);
-                    $user->setGender($me['gender']);
-                    $user->setBirthday($me['birthday'], User::FACEBOOK);
-                    $user->setLocale($me['locale']);
-                    $user->setEmail($me['email']);
+                    if (!$user) {
+                        $user_class = '\\'.$this->container->getParameter('ephp_acl.user_class');
+                        $user = new $user_class();
+                    }
+                    $user->setFBData($me);
                     $user->setEnabled(true);
                     $user->setPlainPassword('facebook-connect');
                     $em->beginTransaction();
