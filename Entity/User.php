@@ -2,7 +2,7 @@
 
 namespace Ephp\ACLBundle\Entity;
 
-use Ephp\ACLBundle\Model\BaseUser;
+use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,5 +12,27 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Ephp\ACLBundle\Entity\UserRepository")
  */
 class User extends BaseUser {
+
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
 
 }
