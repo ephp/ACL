@@ -93,7 +93,7 @@ classe User come riportato nell'esempio
 
 namespace Acme\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use Ephp\ACLBundle\Model\BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -265,7 +265,7 @@ ephp_acl_bundle:
 
 ```
 
-### Step 7: Update your database schema
+### 7: Update your database schema
 
 Ora che il bundle è configurato, l'ultima cosa che devi fare è aggiornare lo
 schema del database perché è stata aggiunta una nuova entity, la classe `User`

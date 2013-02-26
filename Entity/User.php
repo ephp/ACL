@@ -2,7 +2,7 @@
 
 namespace Ephp\ACLBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use Ephp\ACLBundle\Model\BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
