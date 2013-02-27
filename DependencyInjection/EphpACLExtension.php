@@ -21,7 +21,8 @@ class EphpACLExtension extends Extension {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('ephp_acl.user_class', $config['user_class']);
+        $container->setParameter('ephp_acl.user_repository', $config['user_class']);
+        $container->setParameter('ephp_acl.user_class', '\\'.$config['user_class']);
         foreach (array('app_id', 'app_secret', 'app_name', 'app_url', 'app_description') as $attribute) {
             $container->setParameter('ephp_acl.facebook.'.$attribute, $config['facebook'][$attribute]);
         }

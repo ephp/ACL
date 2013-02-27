@@ -25,7 +25,7 @@ class FacebookController extends Controller {
         $user = $this->getUser();
         /* @var $user \Ephp\ACLBundle\Model\BaseUser */
         if($user == 'anon.') {
-            $_user = $em->getRepository($this->container->getParameter('ephp_acl.user_class'));
+            $_user = $em->getRepository($this->container->getParameter('ephp_acl.user_repository'));
             $user = $_user->findOneBy(array('facebookId' => $fb['userID']));
         } else {
             $nofb = !$user->getFacebookId();
@@ -39,7 +39,7 @@ class FacebookController extends Controller {
                 try {
                     $me = $facebook->api('/me', 'GET');
                     if (!$user) {
-                        $user_class = '\\'.$this->container->getParameter('ephp_acl.user_class');
+                        $user_class = $this->container->getParameter('ephp_acl.user_class');
                         $user = new $user_class();
                     }
                     $user->setFBData($me);
