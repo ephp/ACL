@@ -149,7 +149,7 @@ abstract class BaseUser extends User {
             $this->setGender($fbdata['gender']);
         }
         if (isset($fbdata['birthday'])) {
-            $this->setBirthday($fbdata['birthday'], User::FACEBOOK);
+            $this->setBirthday($fbdata['birthday'], self::FACEBOOK);
         }
         if (isset($fbdata['locale'])) {
             $this->setLocale($fbdata['locale']);
