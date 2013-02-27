@@ -1,3 +1,26 @@
+function goLogIn(data){
+    console.log(data);
+    $.post('{{ path('fb_reg') }}', {'fb': data.authResponse}, function(out){
+        console.log(out);
+        window.location.href = "{{ path('_security_check') }}";
+    });
+}
+
+function onFbInit() {
+    if (typeof(FB) != 'undefined' && FB != null ) {              
+        FB.Event.subscribe('auth.statusChange', function(response) {
+            console.log(response);
+            if (response.session || response.authResponse) {
+                setTimeout(function(){goLogIn(response)}, 500);
+            } else {
+                window.location.href = "{{ path('_security_logout') }}";
+            }
+        });
+    } else {
+        alert('non sei loggato');
+    }
+}
+
 function fb_friends(user_id){
     $.post("{{ path('fb_friends') }}", {fb: {userId: user_id}}, function(out){
         console.log(out);
