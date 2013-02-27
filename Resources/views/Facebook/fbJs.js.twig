@@ -19,7 +19,7 @@ function fb_pictures(user_id){
         console.log(out);
         $('#fb-pictures').append('<h2>{{ 'fb.pictures.post'|trans({}, 'EphpACL') }}</h2>');
         out.each(function(picture) {
-            html = $('#fb-picture').html().replace(/\[id\]/g, picture.id).replace(/\[name\]/g, picture.from.name).replace(/\[url_big\]/g, picture.picture).replace(/\[url_tmb\]/g, picture.icon);
+            html = $('#fb-picture').html().replace(/\[id\]/g, picture.id).replace(/\[name\]/g, picture.from.name).replace(/\[url_big\]/g, picture.images.0.source).replace(/\[url_tmb\]/g, picture.picture);
             $('#fb-friends').append(html);
         });
     });
