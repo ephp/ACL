@@ -228,7 +228,7 @@ abstract class BaseUser extends User {
     public function setBirthday($birthday, $from = null) {
         if ($birthday) {
             if (is_string($birthday)) {
-                if(in_array($from, self::FACEBOOK)) {
+                if(in_array($from, array(self::FACEBOOK))) {
                     $birthday = \DateTime::createFromFormat('m/d/Y', $birthday);
                 } else {
                     $birthday = \DateTime::createFromFormat('d/m/Y', $birthday);
