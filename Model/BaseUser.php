@@ -24,7 +24,7 @@ abstract class BaseUser extends User {
     /**
      * @var string
      *
-     * @ORM\Column(name="nickname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="nickname", type="string", length=255, nullable=true, unique=true)
      */
     protected $nickname;
 
