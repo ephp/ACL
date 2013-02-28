@@ -1,13 +1,8 @@
 function goLogIn(data){
-    $.post('{{ path('fb_reg') }}', {'fb': data.authResponse}, function(out){
-        if(out.status != 'anonimous') {
-            window.location.href = "{{ path('_security_check') }}";
-        }
-    });
+    window.location.href = "{{ path('_security_check') }}";
 }
 
 function onFbInit() {
-    console.log('onFbInit');
     if (typeof(FB) != 'undefined' && FB != null ) {              
         FB.Event.subscribe('auth.statusChange', function(response) {
             if (response.session || response.authResponse) {

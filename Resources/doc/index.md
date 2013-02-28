@@ -277,7 +277,7 @@ Lancia il comando
 $ php app/console doctrine:schema:update --force
 ```
 
-### Per saperne di più..
+## Per saperne di più..
 
-TODO
+- [Configurare Facebook](facebook.md)
 

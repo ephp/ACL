@@ -1,3 +1,4 @@
+<div id="fb-pictures"></div>
 <script type="text/text" id="fb-friend">
     <div id="fbf[id]">
         <img src="https://graph.facebook.com/[id]/picture" title="[name]"/>[name]
@@ -9,10 +10,5 @@
         <img src="https://graph.facebook.com/[id]/picture" title="[name]"/>[name] - [slug]
         <button onclick="sendMessageJs([id])">{{ 'fb.friends.message'|trans({}, 'EphpACL') }}</button>
         <button onclick="sendInviteJs([id])">{{ 'fb.friends.invite'|trans({}, 'EphpACL') }}</button>
-    </div>
-</script>
-<script type="text/text" id="fb-picture">
-    <div id="fbp[id]">
-        <a href="[url_big]" target="_blank"><img src="[url_tmb]" title="[name]"/></a>
     </div>
 </script>
