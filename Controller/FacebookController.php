@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Ephp\ACLBundle\Entity\User;
 use Ephp\ACLBundle\Utility\Facebook;
 
@@ -21,17 +22,17 @@ class FacebookController extends Controller {
         $em = $this->getEm();
         $req = $this->getRequest();
         $fb = $req->get('fb');
-        $nofb = false;
-        $user = $this->getUser();
+        $_user = $em->getRepository($this->container->getParameter('ephp_acl.user_repository'));
+        $user = $_user->findOneBy(array('facebookId' => $fb['userID']));
         /* @var $user \Ephp\ACLBundle\Model\BaseUser */
-        if($user == 'anon.') {
-            $_user = $em->getRepository($this->container->getParameter('ephp_acl.user_repository'));
-            $user = $_user->findOneBy(array('facebookId' => $fb['userID']));
-        } else {
-            $nofb = !$user->getFacebookId();
+        $nofb = is_null($user) || is_null($user->getFacebookId());
+        $status = 'anonimous';
+        if(isset($fb['checkLogin'])) {
+            if($nofb) {
+                $nofb = false;
+            }
         }
-        $status = 'unknow';
-        if (!$user || $nofb) {
+        if ($nofb) {
             $facebook = $this->get('fos_facebook.api');
             /* @var $facebook \Facebook */
             $user_id = $facebook->getUser();
@@ -58,7 +59,9 @@ class FacebookController extends Controller {
                 }
             }
         } else {
-            $status = 'login';
+            if ($user) {
+                $status = 'login';
+            }
         }
         if ($user) {
             $token = new UsernamePasswordToken(

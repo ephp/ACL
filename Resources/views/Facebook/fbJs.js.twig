@@ -1,23 +1,26 @@
 function goLogIn(data){
-    console.log(data);
     $.post('{{ path('fb_reg') }}', {'fb': data.authResponse}, function(out){
-        console.log(out);
-        window.location.href = "{{ path('_security_check') }}";
+        if(out.status != 'anonimous') {
+            window.location.href = "{{ path('_security_check') }}";
+        }
     });
 }
 
 function onFbInit() {
+    console.log('onFbInit');
     if (typeof(FB) != 'undefined' && FB != null ) {              
         FB.Event.subscribe('auth.statusChange', function(response) {
-            console.log(response);
             if (response.session || response.authResponse) {
-                setTimeout(function(){goLogIn(response)}, 500);
+                setTimeout(function(){goLogIn(response)}, 100);
             } else {
                 window.location.href = "{{ path('_security_logout') }}";
             }
         });
-    } else {
-        alert('non sei loggato');
+        {% if not app.user %}
+            if(FB.getUserID() != '') {
+                setTimeout(function(){goLogIn({authResponse:{userID: FB.getUserID(), checkLogin: true}})}, 500);
+            } 
+        {% endif %}
     }
 }
 
