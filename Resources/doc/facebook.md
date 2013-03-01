@@ -45,3 +45,33 @@ Invia un messaggio nella chat di Facebook
 
 ### sendInviteJs(id)
 Invia un invito a visitare il sito
+
+## Disabilitare Facebook
+È possibile solo se si estende EphACLBundle con un nuovo bundle.
+
+Nel AcmeUserBundle.php occorre aggiungere la funzione
+
+```     public function getParent() {
+        return 'EphpACLBundle';
+    }
+```
+
+poi occorre aggiungere il seguente file service.yml all'interno della directory
+Acme/UserBundle/Resources/config
+
+``` services:
+    my.facebook.user:
+        class: Ephp\ACLBundle\Security\User\Provider\FacebookProvider
+        arguments:
+            facebook: ~
+            userManager: ~
+            validator: ~
+            container: ~
+```
+
+Infine all'interno di AcmeUserBundle bisogna inserire le righe
+
+```         $loader = new Loader\YAmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.yml');
+
+```
