@@ -46,7 +46,7 @@ class InvitoFacebook extends Invito
     }
     
     protected function generaCodice(\DateTime $now) {
-        return 'FB-'.String::ep8($now).'-'.String::ep8('invito via facebook').'-'.String::ep8($this->getUser());
+        return 'FB-'.String::ep8(array($now, 'invito via facebook', $this->getUser()));
     }
     
     /**

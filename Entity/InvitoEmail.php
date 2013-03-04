@@ -64,7 +64,7 @@ class InvitoEmail extends Invito
     }
 
     protected function generaCodice(\DateTime $now) {
-        return 'EM-'.String::ep8($now).'-'.String::ep8('invito via email').'-'.String::ep8($this->getUser());
+        return 'EM-'.String::ep8(array($now, 'invito via email', $this->getUser()));
     }
     
 }
