@@ -4,8 +4,9 @@ namespace Ephp\ACLBundle\Model;
 
 use FOS\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Ephp\UtilityBundle\Interfaces\EP8;
 
-abstract class BaseUser extends User {
+abstract class BaseUser extends User implements EP8 {
 
     /**
      * @var string
@@ -248,6 +249,10 @@ abstract class BaseUser extends User {
      */
     public function getBirthday() {
         return $this->birthday;
+    }
+    
+    public function ep8String() {
+        return $this->getEmail().'|'.$this->getNickname().'|'.$this->getId().'|'.$this->getSalt().'|'.$this->getPassword();
     }
 
 }

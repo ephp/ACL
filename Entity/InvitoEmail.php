@@ -3,6 +3,7 @@
 namespace Ephp\ACLBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ephp\UtilityBundle\Utility\String;
 
 /**
  * InvitoEmail
@@ -63,7 +64,7 @@ class InvitoEmail extends Invito
     }
 
     protected function generaCodice(\DateTime $now) {
-        return 'EM-'.$this->ep8($now).'-'.$this->ep8('invito via email').'-'.$this->ep8($this->getUser());
+        return 'EM-'.String::ep8($now).'-'.String::ep8('invito via email').'-'.String::ep8($this->getUser());
     }
     
 }

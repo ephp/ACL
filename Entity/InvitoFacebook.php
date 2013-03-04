@@ -3,6 +3,7 @@
 namespace Ephp\ACLBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ephp\UtilityBundle\Utility\String;
 
 /**
  * InvitoFacebook
@@ -45,7 +46,7 @@ class InvitoFacebook extends Invito
     }
     
     protected function generaCodice(\DateTime $now) {
-        return 'FB-'.$this->ep8($now).'-'.$this->ep8('invito via facebook').'-'.$this->ep8($this->getUser());
+        return 'FB-'.String::ep8($now).'-'.String::ep8('invito via facebook').'-'.String::ep8($this->getUser());
     }
     
     /**

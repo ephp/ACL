@@ -192,22 +192,4 @@ abstract class Invito {
 
     abstract protected function generaCodice(\DateTime $now);
     
-    protected function ep8($obj) {
-        if($obj instanceof \DateTime) {
-            $str = $obj->getTimestamp();
-        } else if($obj instanceof \Ephp\ACLBundle\Model\BaseUser) {
-            /* @var $obj \Ephp\ACLBundle\Model\BaseUser */
-            $str = $obj->getEmail().'|'.$obj->getNickname().'|'.$obj->getId().'|'.$obj->getSalt().'|'.$obj->getPassword();
-        } else {
-            $str = 'trasforma '.$obj;
-        }
-        $str = md5($str);
-        $n = 0;
-        for($i = 0; $i < strlen($str); $i++) {
-            $n += ord($str{$i}) * (1 + $i % 10);
-        }
-        $n = dechex($ts).'';
-        return str_repeat('0', 8-strlen($n)).$n;
-    }
-    
 }
