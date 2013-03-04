@@ -4,29 +4,28 @@ namespace Ephp\ACLBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class BaseAccessLog
-{
+abstract class BaseAccessLog {
 
     /**
      * @var string
      *
      * @ORM\Column(name="ip", type="string", length=15)
      */
-    private $ip;
+    protected $ip;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="logged_at", type="datetime")
      */
-    private $logged_at;
+    protected $logged_at;
 
     /**
      * @var array
      *
      * @ORM\Column(name="note", type="array")
      */
-    private $note;
+    protected $note;
 
     /**
      * Set ip
@@ -34,10 +33,9 @@ class BaseAccessLog
      * @param string $ip
      * @return BaseAccessLog
      */
-    public function setIp($ip)
-    {
+    public function setIp($ip) {
         $this->ip = $ip;
-    
+
         return $this;
     }
 
@@ -46,8 +44,7 @@ class BaseAccessLog
      *
      * @return string 
      */
-    public function getIp()
-    {
+    public function getIp() {
         return $this->ip;
     }
 
@@ -57,10 +54,9 @@ class BaseAccessLog
      * @param \DateTime $loggedAt
      * @return BaseAccessLog
      */
-    public function setLoggedAt($loggedAt)
-    {
+    public function setLoggedAt($loggedAt) {
         $this->logged_at = $loggedAt;
-    
+
         return $this;
     }
 
@@ -69,8 +65,7 @@ class BaseAccessLog
      *
      * @return \DateTime 
      */
-    public function getLoggedAt()
-    {
+    public function getLoggedAt() {
         return $this->logged_at;
     }
 
@@ -80,10 +75,9 @@ class BaseAccessLog
      * @param array $note
      * @return BaseAccessLog
      */
-    public function setNote($note)
-    {
+    public function setNote($note) {
         $this->note = $note;
-    
+
         return $this;
     }
 
@@ -92,8 +86,13 @@ class BaseAccessLog
      *
      * @return array 
      */
-    public function getNote()
-    {
+    public function getNote() {
         return $this->note;
     }
+
+    abstract public function getId();
+    
+    abstract public function getUser();
+
+    abstract public function setUser($user);
 }
