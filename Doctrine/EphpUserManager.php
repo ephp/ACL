@@ -16,13 +16,11 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Doctrine\UserManager;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class EphpUserManager extends UserManager
 {
     protected $container;
     protected $accessClass;
-    protected $accessRepository;
     
     /**
      * Constructor.
@@ -37,9 +35,8 @@ class EphpUserManager extends UserManager
     {
         parent::__construct($encoderFactory, $usernameCanonicalizer, $emailCanonicalizer, $om, $userClass);
 
-        $this->accessRepository = $om->getRepository($accessClass);
-
         $metadata = $om->getClassMetadata($accessClass);
+
         $this->accessClass = $metadata->getName();
         $this->container = $container;
     }
