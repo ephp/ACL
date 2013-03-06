@@ -280,4 +280,5 @@ $ php app/console doctrine:schema:update --force
 ## Per saperne di più..
 
 - [Configurare Facebook](facebook.md)
+- [Configurare l'access log](access_log.md)
 
