@@ -1,4 +1,8 @@
 ephp_acl:
+  access_log:
+    enable: false
+    class: \Ephp\ACLBundle\Entity\AccessLog
+    check_ip: false
   user_class: \Ephp\ACLBundle\Entity\User
   facebook:
     app_id: 1234567890

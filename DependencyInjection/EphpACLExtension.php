@@ -21,10 +21,12 @@ class EphpACLExtension extends Extension {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('ephp_acl.user_repository', $config['user_class']);
-        $container->setParameter('ephp_acl.user_class', '\\'.$config['user_class']);
-        $container->setParameter('ephp_acl.access_log_repository', $config['access_log_class']);
-        $container->setParameter('ephp_acl.access_log_class', '\\'.$config['access_log_class']);
+        $container->setParameter('ephp_acl.user.class', $config['user_class']);
+        $container->setParameter('ephp_acl.user.namespace', '\\'.$config['user_class']);
+        $container->setParameter('ephp_acl.access_log.enable', $config['access_log']['enable']);
+        $container->setParameter('ephp_acl.access_log.class', $config['access_log']['class']);
+        $container->setParameter('ephp_acl.access_log.namespace', '\\'.$config['access_log']['class']);
+        $container->setParameter('ephp_acl.access_log.check_ip', $config['access_log']['check_ip']);
         foreach (array('app_id', 'app_secret', 'app_name', 'app_url', 'app_description') as $attribute) {
             $container->setParameter('ephp_acl.facebook.'.$attribute, $config['facebook'][$attribute]);
         }

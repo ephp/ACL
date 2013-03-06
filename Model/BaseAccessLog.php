@@ -14,6 +14,13 @@ abstract class BaseAccessLog {
     protected $ip;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cookie", type="text")
+     */
+    protected $cookie;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="logged_at", type="datetime")
