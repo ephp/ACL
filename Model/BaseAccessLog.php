@@ -16,7 +16,7 @@ abstract class BaseAccessLog {
     /**
      * @var string
      *
-     * @ORM\Column(name="cookie", type="text")
+     * @ORM\Column(name="cookie", type="array")
      */
     protected $cookie;
 
@@ -34,6 +34,12 @@ abstract class BaseAccessLog {
      */
     protected $note;
 
+    function __construct() {
+        $this->cookie = array();
+        $this->note = array();
+    }
+
+    
     /**
      * Set ip
      *
@@ -89,12 +95,63 @@ abstract class BaseAccessLog {
     }
 
     /**
+     * Set note
+     *
+     * @param array $note
+     * @return BaseAccessLog
+     */
+    public function addNote($key, $note = null) {
+        if($note) {
+            $this->note[$key] = $note;
+        } else {
+            $this->note[] = $key;
+        }
+        return $this;
+    }
+
+    /**
      * Get note
      *
      * @return array 
      */
     public function getNote() {
         return $this->note;
+    }
+    
+    /**
+     * Set cookie
+     *
+     * @param array $cookie
+     * @return BaseAccessLog
+     */
+    public function setCookie($cookie) {
+        $this->cookie = $cookie;
+
+        return $this;
+    }
+
+    /**
+     * Add cookie
+     *
+     * @param array $cookie
+     * @return BaseAccessLog
+     */
+    public function addCookie($key, $cookie = null) {
+        if($cookie) {
+            $this->cookie[$key] = $cookie;
+        } else {
+            $this->cookie[] = $key;
+        }
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return array 
+     */
+    public function getCookie() {
+        return $this->cookie;
     }
 
     abstract public function getId();

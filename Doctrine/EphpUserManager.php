@@ -58,7 +58,7 @@ class EphpUserManager extends UserManager {
             $accessClassName = $this->accessClass;
             try {
                 $request = $this->container->get('request');
-                \Ephp\UtilityBundle\Utility\Debug::vd($request);
+//                \Ephp\UtilityBundle\Utility\Debug::vd($request);
                 $check_ip = $this->container->getParameter('ephp_acl.access_log.check_ip');
                 if($check_ip) {
                     $_access = $this->objectManager->getRepository($accessClassName);
@@ -70,12 +70,12 @@ class EphpUserManager extends UserManager {
                 $access->setUser($user);
                 /* @var $request \Symfony\Component\HttpFoundation\Request */
                 $access->setIp($request->server->get('REMOTE_ADDR'));
-                $access->setCookie($request->server->get('HTTP_COOKIE'));
+                foreach ($request->cookies as $name => $cookie) {
+                    $access->addCookie($name, $cookie);
+                }
                 $access->setLoggedAt(new \DateTime());
-                $access->setNote(array(
-                    'user_agent' => $request->server->get('HTTP_USER_AGENT'),
-                    'accept_language' => $request->server->get('HTTP_ACCEPT_LANGUAGE'),
-                ));
+                $access->addNote('user_agent', $request->server->get('HTTP_USER_AGENT'));
+                $access->addNote('accept_language', $request->server->get('HTTP_ACCEPT_LANGUAGE'));
                 $this->objectManager->persist($access);
                 $this->objectManager->flush();
 //            \Ephp\UtilityBundle\Utility\Debug::pr($request->server);
