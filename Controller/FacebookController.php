@@ -22,8 +22,7 @@ class FacebookController extends Controller {
         $em = $this->getEm();
         $req = $this->getRequest();
         $fb = $req->get('fb');
-        $_user = $em->getRepository($this->container->getParameter('ephp_acl.user.class'));
-        $user = $_user->findOneBy(array('facebookId' => $fb['userID']));
+        $user = $this->getUser();
         /* @var $user \Ephp\ACLBundle\Model\BaseUser */
         $nofb = is_null($user) || is_null($user->getFacebookId());
         $status = 'anonimous';
@@ -33,6 +32,12 @@ class FacebookController extends Controller {
             }
         }
         if ($nofb) {
+            $_user = $em->getRepository($this->container->getParameter('ephp_acl.user.class'));
+            $fbuser = $_user->findOneBy(array('facebookId' => $fb['userID']));
+            /* @var $fbuser \Ephp\ACLBundle\Model\BaseUser */
+            if($user && $fbuser && $user->getId() != $fbuser->getId()) {
+                throw new Exception('Facebook user already registred');
+            }
             $facebook = $this->get('fos_facebook.api');
             /* @var $facebook \Facebook */
             $user_id = $facebook->getUser();
