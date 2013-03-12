@@ -56,15 +56,15 @@ abstract class BaseUser extends User implements EP8 {
      * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
      */
     protected $facebookId;
-    
-    const FACEBOOK = 1;    
+
+    const FACEBOOK = 1;
 
     function __construct() {
         parent::__construct();
     }
 
     public function serialize() {
-        if($this->facebookId) {
+        if ($this->facebookId) {
             return serialize(array($this->facebookId, parent::serialize()));
         } else {
             return parent::serialize();
@@ -72,8 +72,12 @@ abstract class BaseUser extends User implements EP8 {
     }
 
     public function unserialize($data) {
-        list($this->facebookId, $parentData) = unserialize($data);
-        parent::unserialize($parentData);
+        if ($this->facebookId) {
+            list($this->facebookId, $parentData) = unserialize($data);
+            parent::unserialize($parentData);
+        } else {
+            parent::unserialize($data);
+        }
     }
 
     /**
@@ -233,7 +237,7 @@ abstract class BaseUser extends User implements EP8 {
     public function setBirthday($birthday, $from = null) {
         if ($birthday) {
             if (is_string($birthday)) {
-                if(in_array($from, array(self::FACEBOOK))) {
+                if (in_array($from, array(self::FACEBOOK))) {
                     $birthday = \DateTime::createFromFormat('m/d/Y', $birthday);
                 } else {
                     $birthday = \DateTime::createFromFormat('d/m/Y', $birthday);
@@ -254,9 +258,9 @@ abstract class BaseUser extends User implements EP8 {
     public function getBirthday() {
         return $this->birthday;
     }
-    
+
     public function ep8String() {
-        return $this->getEmail().'|'.$this->getNickname().'|'.$this->getId().'|'.$this->getSalt().'|'.$this->getPassword();
+        return $this->getEmail() . '|' . $this->getNickname() . '|' . $this->getId() . '|' . $this->getSalt() . '|' . $this->getPassword();
     }
 
 }
