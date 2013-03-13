@@ -64,20 +64,12 @@ abstract class BaseUser extends User implements EP8 {
     }
 
     public function serialize() {
-        if ($this->facebookId) {
-            return serialize(array($this->facebookId, parent::serialize()));
-        } else {
-            return parent::serialize();
-        }
+        return serialize(array($this->facebookId, parent::serialize()));
     }
 
     public function unserialize($data) {
-        if ($this->facebookId) {
-            list($this->facebookId, $parentData) = unserialize($data);
-            parent::unserialize($parentData);
-        } else {
-            parent::unserialize($data);
-        }
+        list($this->facebookId, $parentData) = unserialize($data);
+        parent::unserialize($parentData);
     }
 
     /**
