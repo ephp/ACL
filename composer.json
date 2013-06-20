@@ -16,6 +16,7 @@
             "ephp/utility": "master",
             "friendsofsymfony/user-bundle": "~2.0@dev",
             "friendsofsymfony/facebook-bundle": "1.2.*",
+            "kertz/twitteroauth": "dev-master@dev",
             "friendsofsymfony/twitter-bundle": "*"
     },
     "autoload": {
