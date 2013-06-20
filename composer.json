@@ -15,9 +15,7 @@
             "php": ">=5.3.2",
             "ephp/utility": "master",
             "friendsofsymfony/user-bundle": "~2.0@dev",
-            "friendsofsymfony/facebook-bundle": "1.2.*",
-            "kertz/twitteroauth": "dev-master@dev",
-            "friendsofsymfony/twitter-bundle": "*@dev"
+            "friendsofsymfony/facebook-bundle": "1.2.*"            
     },
     "autoload": {
             "psr-0": { "Ephp\\ACLBundle": "" }
