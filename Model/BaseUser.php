@@ -96,11 +96,11 @@ abstract class BaseUser extends User implements EP8 {
     }
 
     public function serialize() {
-        return serialize(array($this->facebookId, $this->twitterId, parent::serialize()));
+        return serialize(array($this->facebookId, $this->twitter_id, parent::serialize()));
     }
 
     public function unserialize($data) {
-        list($this->facebookId, $parentData) = unserialize($data);
+        list($this->facebookId,$this->twitter_id, $parentData) = unserialize($data);
         parent::unserialize($parentData);
     }
 
