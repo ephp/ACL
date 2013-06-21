@@ -57,34 +57,38 @@ abstract class BaseUser extends User implements EP8 {
      */
     protected $facebookId;
     
-     /**
+    /**
      * @var string
+     * 
+     * @ORM\Column(name="twitterId", type="string", length=255, nullable=true)
      */
-    protected $twitterID;
+    protected $twitterId;
 
     /**
      * @var string
+     * 
+     * @ORM\Column(name="twitter_username", type="string", length=255, nullable=true)
      */
     protected $twitter_username;
 
     /**
-     * Set twitterID
+     * Set twitterId
      *
-     * @param string $twitterID
+     * @param string $twitterId
      */
-    public function setTwitterID($twitterID) {
-        $this->twitterID = $twitterID;
-        $this->setUsername($twitterID);
+    public function setTwitterId($twitterId) {
+        $this->twitterId = $twitterId;
+        $this->setUsername($twitterId);
         $this->salt = '';
     }
 
     /**
-     * Get twitterID
+     * Get twitterId
      *
      * @return string 
      */
-    public function getTwitterID() {
-        return $this->twitterID;
+    public function getTwitterId() {
+        return $this->twitterId;
     }
 
     /**
@@ -106,13 +110,14 @@ abstract class BaseUser extends User implements EP8 {
     }
 
     const FACEBOOK = 1;
+    const TWITTER = 2;
 
     function __construct() {
         parent::__construct();
     }
 
     public function serialize() {
-        return serialize(array($this->facebookId, parent::serialize()));
+        return serialize(array($this->facebookId, $this->twitterId, parent::serialize()));
     }
 
     public function unserialize($data) {
