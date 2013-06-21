@@ -60,55 +60,34 @@ abstract class BaseUser extends User implements EP8 {
     /**
      * @var string
      * 
-     * @ORM\Column(name="twitterId", type="string", length=255, nullable=true)
+     * @ORM\Column(name="twitter_id", type="string", length=255, nullable=true)
      */
-    protected $twitterId;
+    protected $twitter_id;
 
     /**
      * @var string
      * 
-     * @ORM\Column(name="twitter_username", type="string", length=255, nullable=true)
+     * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
      */
-    protected $twitter_username;
+    protected $twitter_access_token;
 
-    /**
-     * Set twitterId
-     *
-     * @param string $twitterId
-     */
-    public function setTwitterId($twitterId) {
-        $this->twitterId = $twitterId;
-        $this->setUsername($twitterId);
-        $this->salt = '';
-    }
-
-    /**
-     * Get twitterId
-     *
-     * @return string 
-     */
     public function getTwitterId() {
-        return $this->twitterId;
+        return $this->twitter_id;
     }
 
-    /**
-     * Set twitter_username
-     *
-     * @param string $twitterUsername
-     */
-    public function setTwitterUsername($twitterUsername) {
-        $this->twitter_username = $twitterUsername;
+    public function setTwitterId($twitter_id) {
+        $this->twitter_id = $twitter_id;
     }
 
-    /**
-     * Get twitter_username
-     *
-     * @return string 
-     */
-    public function getTwitterUsername() {
-        return $this->twitter_username;
+    public function getTwitterAccessToken() {
+        return $this->twitter_access_token;
     }
 
+    public function setTwitterAccessToken($twitter_access_token) {
+        $this->twitter_access_token = $twitter_access_token;
+    }
+
+        
     const FACEBOOK = 1;
     const TWITTER = 2;
 
