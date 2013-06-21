@@ -56,6 +56,54 @@ abstract class BaseUser extends User implements EP8 {
      * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
      */
     protected $facebookId;
+    
+     /**
+     * @var string
+     */
+    protected $twitterID;
+
+    /**
+     * @var string
+     */
+    protected $twitter_username;
+
+    /**
+     * Set twitterID
+     *
+     * @param string $twitterID
+     */
+    public function setTwitterID($twitterID) {
+        $this->twitterID = $twitterID;
+        $this->setUsername($twitterID);
+        $this->salt = '';
+    }
+
+    /**
+     * Get twitterID
+     *
+     * @return string 
+     */
+    public function getTwitterID() {
+        return $this->twitterID;
+    }
+
+    /**
+     * Set twitter_username
+     *
+     * @param string $twitterUsername
+     */
+    public function setTwitterUsername($twitterUsername) {
+        $this->twitter_username = $twitterUsername;
+    }
+
+    /**
+     * Get twitter_username
+     *
+     * @return string 
+     */
+    public function getTwitterUsername() {
+        return $this->twitter_username;
+    }
 
     const FACEBOOK = 1;
 
