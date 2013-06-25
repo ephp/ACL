@@ -70,7 +70,24 @@ abstract class BaseUser extends User implements EP8 {
      * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
      */
     protected $twitter_access_token;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     */
+    protected $avatar;
+    
+    
+    public function getAvatar() {
+        return $this->avatar;
+    }
 
+    public function setAvatar($avatar) {
+        $this->avatar = $avatar;
+    }
+
+        
     public function getTwitterId() {
         return $this->twitter_id;
     }
