@@ -56,7 +56,7 @@ abstract class BaseUser extends User implements EP8 {
      * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
      */
     protected $facebookId;
-    
+
     /**
      * @var string
      * 
@@ -71,6 +71,29 @@ abstract class BaseUser extends User implements EP8 {
      */
     protected $twitter_access_token;
 
+    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    protected $google_id;
+
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    protected $google_access_token;
+    
+    public function getGoogleId() {
+        return $this->google_id;
+    }
+
+    public function setGoogleId($google_id) {
+        $this->google_id = $google_id;
+    }
+
+    public function getGoogleAccessToken() {
+        return $this->google_access_token;
+    }
+
+    public function setGoogleAccessToken($google_access_token) {
+        $this->google_access_token = $google_access_token;
+    }
+
+    
     public function getTwitterId() {
         return $this->twitter_id;
     }
@@ -87,7 +110,6 @@ abstract class BaseUser extends User implements EP8 {
         $this->twitter_access_token = $twitter_access_token;
     }
 
-        
     const FACEBOOK = 1;
     const TWITTER = 2;
 
