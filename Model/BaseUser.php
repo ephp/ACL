@@ -56,7 +56,7 @@ abstract class BaseUser extends User implements EP8 {
      * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
      */
     protected $facebookId;
-
+    
     /**
      * @var string
      * 
@@ -70,10 +70,17 @@ abstract class BaseUser extends User implements EP8 {
      * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
      */
     protected $twitter_access_token;
-
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     */
+    protected $avatar;
+    
     /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
     protected $google_id;
-
+ 
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
     
@@ -93,7 +100,16 @@ abstract class BaseUser extends User implements EP8 {
         $this->google_access_token = $google_access_token;
     }
 
-    
+        
+    public function getAvatar() {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar) {
+        $this->avatar = $avatar;
+    }
+
+        
     public function getTwitterId() {
         return $this->twitter_id;
     }
@@ -110,19 +126,21 @@ abstract class BaseUser extends User implements EP8 {
         $this->twitter_access_token = $twitter_access_token;
     }
 
+        
     const FACEBOOK = 1;
     const TWITTER = 2;
+    const GOOGLE = 3;
 
     function __construct() {
         parent::__construct();
     }
 
     public function serialize() {
-        return serialize(array($this->facebookId, $this->twitterId, parent::serialize()));
+        return serialize(array($this->facebookId, $this->twitter_id,$this->google_id, parent::serialize()));
     }
 
     public function unserialize($data) {
-        list($this->facebookId, $parentData) = unserialize($data);
+        list($this->facebookId,$this->twitter_id,$this->google_id, $parentData) = unserialize($data);
         parent::unserialize($parentData);
     }
 
