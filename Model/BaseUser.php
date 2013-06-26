@@ -58,7 +58,7 @@ abstract class BaseUser extends User implements EP8 {
     protected $facebookId;
     
     /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
-    protected $facebook_id;
+    //protected $facebook_id;
  
     /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
     protected $facebook_access_token;
@@ -90,13 +90,13 @@ abstract class BaseUser extends User implements EP8 {
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
     
-    public function getFacebookId() {
-        return $this->facebook_id;
-    }
-
-    public function setFacebookId($facebook_id) {
-        $this->facebook_id = $facebook_id;
-    }
+//    public function getFacebookId() {
+//        return $this->facebook_id;
+//    }
+//
+//    public function setFacebookId($facebook_id) {
+//        $this->facebook_id = $facebook_id;
+//    }
 
     public function getFacebookAccessToken() {
         return $this->facebook_access_token;
@@ -160,11 +160,11 @@ abstract class BaseUser extends User implements EP8 {
     }
 
     public function serialize() {
-        return serialize(array($this->facebookId,$this->facebook_id, $this->twitter_id,$this->google_id, parent::serialize()));
+        return serialize(array($this->facebookId, $this->twitter_id,$this->google_id, parent::serialize()));
     }
 
     public function unserialize($data) {
-        list($this->facebookId,$this->facebook_id,$this->twitter_id,$this->google_id, $parentData) = unserialize($data);
+        list($this->facebookId,$this->twitter_id,$this->google_id, $parentData) = unserialize($data);
         parent::unserialize($parentData);
     }
 
