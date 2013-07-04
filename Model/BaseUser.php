@@ -77,6 +77,23 @@ abstract class BaseUser extends User implements EP8 {
      */
     protected $twitter_access_token;
     
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="email_nuova", type="string", length=128, nullable=true)
+     */
+    protected $email_nuova;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="email_nuova_token", type="string", length=128, nullable=true)
+     */
+    protected $email_nuova_token;
+    
+    
+    
     /**
      * @var string
      * 
@@ -90,14 +107,24 @@ abstract class BaseUser extends User implements EP8 {
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
     
-//    public function getFacebookId() {
-//        return $this->facebook_id;
-//    }
-//
-//    public function setFacebookId($facebook_id) {
-//        $this->facebook_id = $facebook_id;
-//    }
+    public function getEmailNuovaToken() {
+        return $this->email_nuova_token;
+    }
 
+    public function setEmailNuovaToken($email_nuova_token) {
+        $this->email_nuova_token = $email_nuova_token;
+    }
+
+        
+    public function getEmailNuova() {
+        return $this->email_nuova;
+    }
+
+    public function setEmailNuova($email_nuova) {
+        $this->email_nuova = $email_nuova;
+    }
+
+    
     public function getFacebookAccessToken() {
         return $this->facebook_access_token;
     }
