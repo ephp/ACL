@@ -5,6 +5,7 @@ namespace Ephp\ACLBundle\Model;
 use FOS\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ephp\UtilityBundle\Interfaces\EP8;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 abstract class BaseUser extends User implements EP8 {
 
@@ -92,8 +93,23 @@ abstract class BaseUser extends User implements EP8 {
      */
     protected $email_nuova_token;
     
+    /**
+     * @Gedmo\Slug(fields={"nickname"}, style="default", separator="-", updatable=true, unique=true)    
+     * @ORM\Column(length=64, unique=true)
+     */
+    private $slug;
     
     
+    
+    public function getSlug() {
+        return $this->slug;
+    }
+
+    public function setSlug($slug) {
+        $this->slug = $slug;
+    }
+    
+        
     /**
      * @var string
      * 
