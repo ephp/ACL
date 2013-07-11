@@ -95,9 +95,9 @@ abstract class BaseUser extends User implements EP8 {
     
     /**
      * @Gedmo\Slug(fields={"nickname"}, style="default", separator="-", updatable=true, unique=true)    
-     * @ORM\Column(length=64, unique=true)
+     * @ORM\Column(name="slug", type="string", length=64, unique=true)
      */
-    private $slug;
+    protected $slug;
     
     
     
