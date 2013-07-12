@@ -14,8 +14,8 @@
     "require": {
             "php": ">=5.3.2",
             "ephp/utility": "master",
-            "friendsofsymfony/user-bundle": "2.0.*@dev",       
-            "hwi/oauth-bundle": "0.3.*@dev"          
+            "friendsofsymfony/user-bundle": "~2.0@dev",
+            "hwi/oauth-bundle": "0.3.*@dev"                
     },
     "autoload": {
             "psr-0": { "Ephp\\ACLBundle": "" }
