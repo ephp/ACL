@@ -2,7 +2,7 @@
 
 namespace Ephp\ACLBundle\Model;
 
-use FOS\UserBundle\Entity\User;
+use FOS\UserBundle\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ephp\UtilityBundle\Interfaces\EP8;
 use Gedmo\Mapping\Annotation as Gedmo;
