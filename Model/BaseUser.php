@@ -253,8 +253,8 @@ abstract class BaseUser extends User implements EP8 {
      */
     public function setFacebookId($facebookId) {
         $this->facebookId = $facebookId;
-        $this->setUsername($facebookId);
-        $this->salt = '';
+        //$this->setUsername($facebookId);
+        //$this->salt = '';
     }
 
     /**
