@@ -99,6 +99,13 @@ abstract class BaseUser extends User implements EP8 {
      */
     protected $slug;
     
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="dati", type="array", nullable=true)
+     */
+    protected $dati;
+    
     
     
     public function getSlug() {
@@ -357,6 +364,27 @@ abstract class BaseUser extends User implements EP8 {
      */
     public function getLocale() {
         return $this->locale;
+    }
+
+    /**
+     * Set dati
+     *
+     * @param array $dati
+     * @return User
+     */
+    public function setDati($dati) {
+        $this->dati = $dati;
+
+        return $this;
+    }
+
+    /**
+     * Get dati
+     *
+     * @return array 
+     */
+    public function getDati() {
+        return $this->dati;
     }
 
     /**
