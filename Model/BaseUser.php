@@ -421,5 +421,13 @@ abstract class BaseUser extends User implements EP8 {
     public function ep8String() {
         return $this->getEmail() . '|' . $this->getNickname() . '|' . $this->getId() . '|' . $this->getSalt() . '|' . $this->getPassword();
     }
-
+    
+    public function hasRole($role) {
+        foreach($this->getRoles() as $_role) {
+            if(strtolower($_role) == strtolower($role)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
