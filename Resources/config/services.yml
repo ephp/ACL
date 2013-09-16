@@ -13,11 +13,12 @@ services:
     my_user_provider:
         class: "%my_user_provider.class%"
         #this is the place where the properties are passed to the UserProvider - see config.yml
-        arguments: [@fos_user.user_manager, {facebook: facebookId, twitter: twitter_id}, @doctrine.orm.entity_manager, @router]
+        arguments: ["@fos_user.user_manager", {facebook: facebookId, twitter: twitter_id}, "@doctrine.orm.entity_manager", "@router"]
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
-  
-   # mio_servizio:
-   #     class: SN\UserBundle\Security\Core\User\Configurazione
-        #public: false
-   #     arguments:  ['@router', '@security.user.entity_manager']        
+
+    acl.pre_listener_execute:
+        class: Ephp\ACLBundle\Listener\Permission
+        arguments: ["@router", "@service_container", "@security.context"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelRequest }    
