@@ -53,34 +53,6 @@ abstract class BaseUser extends User implements EP8 {
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
-     */
-    protected $facebookId;
-    
-    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
-    //protected $facebook_id;
- 
-    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
-    protected $facebook_access_token;
-    
-    /**
-     * @var string
-     * 
-     * @ORM\Column(name="twitter_id", type="string", length=255, nullable=true)
-     */
-    protected $twitter_id;
-
-    /**
-     * @var string
-     * 
-     * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
-     */
-    protected $twitter_access_token;
-    
-    
-    /**
-     * @var string
      * 
      * @ORM\Column(name="email_nuova", type="string", length=128, nullable=true)
      */
@@ -124,12 +96,6 @@ abstract class BaseUser extends User implements EP8 {
      */
     protected $avatar;
     
-    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-    protected $google_id;
- 
-    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
-    protected $google_access_token;
-    
     public function getEmailNuovaToken() {
         return $this->email_nuova_token;
     }
@@ -147,33 +113,6 @@ abstract class BaseUser extends User implements EP8 {
         $this->email_nuova = $email_nuova;
     }
 
-    
-    public function getFacebookAccessToken() {
-        return $this->facebook_access_token;
-    }
-
-    public function setFacebookAccessToken($facebook_access_token) {
-        $this->facebook_access_token = $facebook_access_token;
-    }
-
-        
-    
-    public function getGoogleId() {
-        return $this->google_id;
-    }
-
-    public function setGoogleId($google_id) {
-        $this->google_id = $google_id;
-    }
-
-    public function getGoogleAccessToken() {
-        return $this->google_access_token;
-    }
-
-    public function setGoogleAccessToken($google_access_token) {
-        $this->google_access_token = $google_access_token;
-    }
-
         
     public function getAvatar() {
         return $this->avatar;
@@ -183,24 +122,6 @@ abstract class BaseUser extends User implements EP8 {
         $this->avatar = $avatar;
     }
 
-        
-    public function getTwitterId() {
-        return $this->twitter_id;
-    }
-
-    public function setTwitterId($twitter_id) {
-        $this->twitter_id = $twitter_id;
-    }
-
-    public function getTwitterAccessToken() {
-        return $this->twitter_access_token;
-    }
-
-    public function setTwitterAccessToken($twitter_access_token) {
-        $this->twitter_access_token = $twitter_access_token;
-    }
-
-        
     const FACEBOOK = 1;
     const TWITTER = 2;
     const GOOGLE = 3;
@@ -210,11 +131,37 @@ abstract class BaseUser extends User implements EP8 {
     }
 
     public function serialize() {
-        return serialize(array($this->facebookId, $this->twitter_id,$this->google_id, parent::serialize()));
+        $s = array();
+        if(method_exists($this, 'serializeFacebook')) {
+            $s[] = $this->serializeFacebook();
+        } else {
+            $s[] = 'no-facebook';
+        }
+        if(method_exists($this, 'serializeTwitter')) {
+            $s[] = $this->serializeTwitter();
+        } else {
+            $s[] = 'no-twitter';
+        }
+        if(method_exists($this, 'serializeGoogle')) {
+            $s[] = $this->serializeGoogle();
+        } else {
+            $s[] = 'no-google';
+        }
+        $s[] = parent::serialize();
+        return serialize($s);
     }
 
     public function unserialize($data) {
-        list($this->facebookId,$this->twitter_id,$this->google_id, $parentData) = unserialize($data);
+        list($facebook, $twitter, $google, $parentData) = unserialize($data);
+        if(method_exists($this, 'unserializeFacebook')) {
+            $s[] = $this->unserializeFacebook($facebook);
+        }
+        if(method_exists($this, 'unserializeTwitter')) {
+            $s[] = $this->unserializeTwitter($twitter);
+        }
+        if(method_exists($this, 'unserializeGoogle')) {
+            $s[] = $this->unserializeGoogle($google);
+        }
         parent::unserialize($parentData);
     }
 
@@ -252,55 +199,6 @@ abstract class BaseUser extends User implements EP8 {
      */
     public function getFullName() {
         return $this->getFirstname() . ' ' . $this->getLastname();
-    }
-
-    /**
-     * @param string $facebookId
-     * @return void
-     */
-    public function setFacebookId($facebookId) {
-        $this->facebookId = $facebookId;
-        //$this->setUsername($facebookId);
-        //$this->salt = '';
-    }
-
-    /**
-     * @return string
-     */
-    public function getFacebookId() {
-        return $this->facebookId;
-    }
-
-    /**
-     * @param Array
-     */
-    public function setFBData($fbdata) {
-        if (isset($fbdata['id'])) {
-            $this->setFacebookId($fbdata['id']);
-            $this->setUsername($fbdata['id']);
-            $this->addRole('ROLE_FACEBOOK');
-        }
-        if (isset($fbdata['first_name'])) {
-            $this->setFirstname($fbdata['first_name']);
-        }
-        if (isset($fbdata['last_name'])) {
-            $this->setLastname($fbdata['last_name']);
-        }
-        if (isset($fbdata['email'])) {
-            $this->setEmail($fbdata['email']);
-        }
-        if (isset($fbdata['username'])) {
-            $this->setNickname($fbdata['username']);
-        }
-        if (isset($fbdata['gender'])) {
-            $this->setGender($fbdata['gender']);
-        }
-        if (isset($fbdata['birthday'])) {
-            $this->setBirthday($fbdata['birthday'], self::FACEBOOK);
-        }
-        if (isset($fbdata['locale'])) {
-            $this->setLocale($fbdata['locale']);
-        }
     }
 
     /**

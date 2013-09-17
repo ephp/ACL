@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser {
 
+    use \Ephp\ACLBundle\Model\Traits\FacebookUser,
+        \Ephp\ACLBundle\Model\Traits\TwitterUser,
+        \Ephp\ACLBundle\Model\Traits\GoogleUser;
+
     /**
      * @var integer $id
      *
@@ -34,7 +38,5 @@ class User extends BaseUser {
     public function getId() {
         return $this->id;
     }
-
-   
 
 }
