@@ -7,7 +7,7 @@ trait TwitterUser {
     /**
      * @var string
      * 
-     * @ORM\Column(name="twitter_id", type="string", length=255, nullable=true)
+     * @ORM\Column(name="twitterId", type="string", length=255, nullable=true)
      */
     protected $twitterId;
 
