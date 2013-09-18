@@ -35,11 +35,11 @@ trait TwitterUser {
         $this->twitter_access_token = $twitter_access_token;
     }
 
-    private function serializeTwitter() {
+    public function serializeTwitter() {
         return $this->twitterId;
     }
 
-    private function unserializeTwitter($serialize) {
+    public function unserializeTwitter($serialize) {
         $this->twitterId = $serialize;
     }
 

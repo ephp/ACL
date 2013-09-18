@@ -64,11 +64,11 @@ trait FacebookUser {
         }
     }
     
-    private function serializeFacebook() {
+    public function serializeFacebook() {
         return $this->facebookId;
     }
     
-    private function unserializeFacebook($serialize) {
+    public function unserializeFacebook($serialize) {
         $this->facebookId = $serialize;
     }
 

@@ -30,11 +30,11 @@ trait GoogleUser {
         $this->google_access_token = $google_access_token;
     }
 
-    private function serializeGoogle() {
+    public function serializeGoogle() {
         return $this->googleId;
     }
 
-    private function unserializeGoogle($serialize) {
+    public function unserializeGoogle($serialize) {
         $this->googleId = $serialize;
     }
 
