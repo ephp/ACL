@@ -321,6 +321,17 @@ abstract class BaseUser extends User implements EP8 {
     }
     
     public function hasRole($role) {
+        if(is_array($role)) {
+            $roles = $role;
+            foreach ($roles as $role) {
+                foreach($this->getRoles() as $_role) {
+                    if(strtolower($_role) == strtolower($role)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         foreach($this->getRoles() as $_role) {
             if(strtolower($_role) == strtolower($role)) {
                 return true;
