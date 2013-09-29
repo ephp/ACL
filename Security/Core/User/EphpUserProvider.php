@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class EphpUserProvider extends BaseClass implements \Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface {
 
@@ -54,7 +55,6 @@ class EphpUserProvider extends BaseClass implements \Symfony\Component\Security\
      * @param InteractiveLoginEvent $event
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event) {
-        $pippo = "";
 //        if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
 //            // user has just logged in
 //            $pippo = 1;
@@ -95,7 +95,8 @@ class EphpUserProvider extends BaseClass implements \Symfony\Component\Security\
     /**
      * {@inheritDoc}
      */
-    public function connect($user, UserResponseInterface $response) {
+    public function connect(UserInterface $user, UserResponseInterface $response) {
+        parent::connect();
         $property = $this->getProperty($response);
         $username = $response->getUsername();
 
