@@ -32,6 +32,7 @@ trait TwitterUser {
 
     public function setTwitterId($twitterId) {
         $this->twitterId = $twitterId;
+        $this->twitter_id = $twitterId;
         return $this;
     }
     
@@ -40,6 +41,7 @@ trait TwitterUser {
     }
 
     public function setTwitter_id($twitter_id) {
+        $this->twitterId = $twitterId;
         $this->twitter_id = $twitter_id;
         return $this;
     }
